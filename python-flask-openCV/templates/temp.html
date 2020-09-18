@@ -1,0 +1,55 @@
+<html style="height: 100%;">
+  <meta charset="utf-8">
+  <title>Controle de Acesso | Tempo Real</title>
+  <meta http-equiv="refresh" content="10">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/static/css/normalize.css">
+  <link rel="stylesheet" href="/static/css/skeleton.css">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/ico" href="/static/images/icon.ico">
+</head>
+  <body style="height: 100%;" class="bg">
+    <div class="container">
+      <div class="row">
+        <div class="two-third column" style="margin-top: 5%">
+            <!--<h2>Clima em tempo real.</h2>-->
+            <h2>TEMPERATURA: {{"{0:0.1f}".format(temp) }}&deg;C</h2>
+            <h2>UMIDADE: {{"{0:0.1f}".format(hum)}}%</h2>  
+            <p>Esta página atualiza a cada 10 segundos.</p>
+        </div>   
+      </div>
+      <div class="row">
+      <div class="eleven columns">
+        <form id="range_select" action = "/dataset" method="GET">  
+          <input type="hidden" class="timezone" name="timezone" />      
+	<div class="one column">
+          <a href="/dataset" style="position:relative;top:15px">Histórico</a>
+       	</div>
+        </form>          
+      </div>
+    </div>           
+  </body> 
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js" ></script>
+<script>
+jQuery( document ).ready(function() {
+    timezone = jstz.determine();
+    jQuery("#timezone").text(timezone.name());     
+});
+  jQuery("#range_select input[type=radio]").click(function(){
+    timezone = jstz.determine();
+    jQuery(".timezone").val(timezone.name()); 
+    jQuery("#range_select").submit();
+  });
+</script> 
+</html>
